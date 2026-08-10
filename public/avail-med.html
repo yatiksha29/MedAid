@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Avail Medicine Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Linking CSS File -->
+    <link rel="stylesheet" href="style/donor_avail_med.css">
+    
+</head>
+ <script>
+    $(document).ready(function(){
+
+    if(localStorage.getItem("activeUser")==null)
+    {
+        window.location.replace("index.html");
+        return;
+    }
+
+    $("#welcomeUser").html(localStorage.getItem("activeUser"));
+
+    // Agar email field hai to usme bhi set kar do
+    $("#txtEmail").val(localStorage.getItem("activeUser"));
+    $("#emailid").val(localStorage.getItem("activeUser"));
+
+});
+</script>
+
+<script>
+    $(document).ready(function(){
+
+    $("#welcomeUser").html(localStorage.getItem("activeUser"));
+    $("#txtDEmail").val(localStorage.getItem("activeUser"));
+
+});
+</script>
+
+<script>
+    function doShowPrev(fileCtrl, prevImg) {
+        const file = fileCtrl.files[0];
+
+        if (file) {
+            prevImg.src = URL.createObjectURL(file);
+        }
+    }
+
+
+</script>
+
+<body>
+
+    <div class="container avail-container">
+        <div class="row">
+            <div class="col-md-12 avail-title">
+                <center><h3>Avail Medicine</h3></center>
+            </div>
+        </div>
+        <div>
+            <form action="/avail-process" enctype="multipart/form-data" method="post"> 
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <center> <h5 class="avail-section-title pt-4">Medicine Image</h5></center>
+                    <br>
+                    <img src="..." id="prevM"  class="medicine-preview">
+                    <br><br>
+                    <input type="file" class="form-control" name="mPic" id="mPic" onchange="doShowPrev(this,prevM)">
+                    <br>
+                </div>
+                <div class="col-md-8">
+                    <center> <h5 class="avail-section-title pt-4">Medicine Description</h5></center>
+                    <div class="card-body">
+                        <br><br>
+
+                    <!--------------------------------------------  FORM  ------------------------------------------------->  
+                    <div class="ms-4">       
+                    <div class="row g-1">
+                                <div class="col-md-6">
+                                    <label for="txtDEmail" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="txtDEmail" name="txtDEmail" readonly>
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="row g-3" >
+                                <div class="col-md-5">
+                                    <label for="mName" class="form-label">Medicine Name</label>
+                                    <input type="text" class="form-control" id="mName" name="mName">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="txtExp" class="form-label">Expiry Date</label>
+                                    <input type="date" class="form-control" id="txtExp" name="txtExp">
+                                    
+                                </div>
+                                <div class="col-4">
+                                    <label for="txtComp" class="form-label">Company</label>
+                                    <input type="text" class="form-control" id="txtComp" name="txtComp">
+                                </div>
+                            </div>
+                            <br><br>
+
+                            <div class="row g-3" >
+                                <div class="col-md-4">
+                                    <label for="txtPack" class="form-label">Packing</label>
+                                    <select id="txtPack" name="txtPack" class="form-select">
+                                        <option selected>Choose...</option>
+                                        <option value="syrup">Syrup</option>
+                                        <option value="tablets">Tablets</option>
+                                        <option value="capsules">Capsules</option>
+                                        <option value="creams">Creams & Ointments</option>
+                                        <option value="sachets">Sachets</option>
+                                        <option value="powder">Dry Powder</option>
+                                        <option value="patches">Patches</option>
+                                        <option value="sprays">Medicated Sprays</option>
+                                        <option value="bottles">Bottle</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="txtQty" class="form-label">Quantity</label>
+                                    <input type="number" min="1" value="1" onkeydown="return false;" class="form-control" id="txtQty" name="txtQty">
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="txtOther" class="form-label">Other Information</label>
+                                    <input type="text" class="form-control" id="txtOther" name="txtOther">
+                                </div>
+                            </div>
+                            <br><br><br><br>
+                            <center>
+                                <div class="row-g-1">
+                                    <button type="submit" class="btn avail-btn">Avail</button>
+                                </div>
+                            </center>
+                        </div> 
+                        </form>
+                        <!--------------------------------------------------------------------------->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

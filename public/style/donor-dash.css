@@ -1,0 +1,545 @@
+
+body {
+    background: #f8f9fa;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    background: #087f5b;
+    height: 75px;
+    padding: 0;
+}
+
+.navbar .container-fluid {
+    height: 100%;
+    position: relative;
+}
+
+
+/* LEFT */
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.brand-name {
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+
+/* CENTER */
+
+.dashboard-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    color: white;
+    font-size: 27px;
+    font-weight: bold;
+}
+
+
+/* RIGHT */
+
+.user-section {
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+#welcomeUser {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.logout-btn {
+    background: white;
+    color: #198754;
+
+    border: none;
+    border-radius: 6px;
+
+    padding: 9px 28px;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background: #e9f7ef;
+}
+
+
+/* ================= DASHBOARD ================= */
+
+.row.g-4 {
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+
+/* ================= CARDS ================= */
+
+.dashboard-card {
+    background: white;
+
+    border: 1px solid #ddd;
+    border-radius: 12px;
+
+    height: 210px;
+
+    padding: 22px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    box-shadow: 0 3px 8px rgba(0,0,0,0.8);
+
+    transition: 0.25s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.13);
+}
+
+
+/* CARD IMAGE */
+
+.dashboard-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+
+/* CARD BUTTON */
+
+.dashboard-card .btn {
+    width: 170px;
+    height: 40px;
+
+    padding: 8px 10px;
+
+    font-size: 15px;
+    border-radius: 7px;
+
+     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* GREEN BUTTON */
+
+.btn-theme {
+    background: #198754;
+    color: white;
+    border: none;
+}
+
+.btn-theme:hover {
+    background: #157347;
+    color: white;
+}
+
+
+/* SETTINGS */
+
+.btn-settings {
+    background: #6c757d;
+    color: white;
+    border: none;
+}
+
+.btn-settings:hover {
+    background: #5c636a;
+    color: white;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width: 768px) {
+
+    .navbar {
+        height: auto;
+        padding: 12px;
+    }
+
+    .navbar .container-fluid {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard-title {
+        position: static;
+        transform: none;
+    }
+
+    .user-section {
+        margin-left: 0;
+    }
+
+}
+
+
+/* ================= MEDICINE MANAGER MODAL ================= */
+
+#medManager .modal-content {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Header */
+
+#medManager .modal-header {
+    background: #198754;
+    color: white;
+    border-bottom: none;
+    padding: 18px 20px;
+}
+
+#medManager .modal-title {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+/* Close button */
+
+#medManager .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+}
+
+#medManager .btn-close:hover {
+    opacity: 1;
+}
+
+/* Body */
+
+#medManager .modal-body {
+    padding: 25px 20px;
+}
+
+/* Email input */
+
+#medManager .modal-body input[type="email"] {
+    width: 250px;
+    padding: 8px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    margin-left: 8px;
+}
+
+#medManager .modal-body input[type="email"]:focus {
+    border-color: #198754;
+    outline: none;
+    box-shadow: 0 0 0 0.15rem rgba(25, 135, 84, 0.15);
+}
+
+/* Fetch button */
+
+#medManager .modal-body > button {
+    background: #198754;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    margin-left: 6px;
+}
+
+#medManager .modal-body > button:hover {
+    background: #157347;
+}
+
+/* Table */
+
+#medManager table {
+    margin-top: 15px;
+    border: 1px solid #dee2e6;
+}
+
+#medManager table th {
+    background: #e9f7ef;
+    color: #145c3a;
+    font-weight: 600;
+    padding: 12px;
+}
+
+#medManager table td {
+    padding: 11px;
+    vertical-align: middle;
+}
+
+/* Delete button */
+
+#medManager table td button {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 14px;
+}
+
+#medManager table td button:hover {
+    background: #bb2d3b;
+}
+
+/* Footer */
+
+#medManager .modal-footer {
+    border-top: 1px solid #eee;
+    padding: 15px 20px;
+}
+
+/* Close button */
+
+#medManager .modal-footer .btn-secondary {
+    background: #198754;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 20px;
+}
+
+#medManager .modal-footer .btn-secondary:hover {
+    background: #157347;
+}
+
+/* ================= EQUIPMENT MANAGER MODAL ================= */
+
+#equipManager .modal-content {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Header */
+
+#equipManager .modal-header {
+    background: #198754;
+    color: white;
+    border-bottom: none;
+    padding: 18px 20px;
+}
+
+#equipManager .modal-title {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+/* Close */
+
+#equipManager .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+}
+
+#equipManager .btn-close:hover {
+    opacity: 1;
+}
+
+/* Body */
+
+#equipManager .modal-body {
+    padding: 25px 20px;
+}
+
+/* Email */
+
+#equipManager .modal-body input[type="email"] {
+    width: 250px;
+    padding: 8px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    margin-left: 8px;
+}
+
+#equipManager .modal-body input[type="email"]:focus {
+    border-color: #198754;
+    outline: none;
+    box-shadow: 0 0 0 0.15rem rgba(25, 135, 84, 0.15);
+}
+
+/* Fetch */
+
+#equipManager .modal-body > button {
+    background: #198754;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    margin-left: 6px;
+}
+
+#equipManager .modal-body > button:hover {
+    background: #157347;
+}
+
+/* Table */
+
+#equipManager table {
+    margin-top: 15px;
+    border: 1px solid #dee2e6;
+}
+
+#equipManager table th {
+    background: #e9f7ef;
+    color: #145c3a;
+    font-weight: 600;
+    padding: 12px;
+}
+
+#equipManager table td {
+    padding: 11px;
+    vertical-align: middle;
+}
+
+/* Delete */
+
+#equipManager table td button {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 14px;
+}
+
+#equipManager table td button:hover {
+    background: #bb2d3b;
+}
+
+/* Footer */
+
+#equipManager .modal-footer {
+    border-top: 1px solid #eee;
+    padding: 15px 20px;
+}
+
+#equipManager .modal-footer .btn-secondary {
+    background: #198754;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 20px;
+}
+
+#equipManager .modal-footer .btn-secondary:hover {
+    background: #157347;
+}
+
+/* ================= SETTINGS MODAL ================= */
+
+#settingsModal .modal-content {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Header */
+
+#settingsModal .modal-header {
+    background: #198754;
+    color: white;
+    border-bottom: none;
+    padding: 18px 20px;
+}
+
+#settingsModal .modal-title {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+/* Close icon */
+
+#settingsModal .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+}
+
+#settingsModal .btn-close:hover {
+    opacity: 1;
+}
+
+/* Body */
+
+#settingsModal .modal-body {
+    padding: 25px 20px;
+}
+
+#settingsModal .form-label {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+/* Inputs */
+
+#settingsModal .form-control {
+    border-radius: 7px;
+    border: 1px solid #ced4da;
+    padding: 9px 12px;
+}
+
+#settingsModal .form-control:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.15rem rgba(25, 135, 84, 0.15);
+}
+
+/* Footer */
+
+#settingsModal .modal-footer {
+    border-top: 1px solid #eee;
+    padding: 15px 20px;
+}
+
+/* Update Password */
+
+#settingsModal .btn-primary {
+    background: #198754;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 18px;
+    font-size: 16px;
+}
+
+#settingsModal .btn-primary:hover {
+    background: #157347;
+}
+
+/* Close */
+
+#settingsModal .btn-secondary {
+    background: #6c757d;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 20px;
+}
+
+#settingsModal .btn-secondary:hover {
+    background: #5c636a;
+}

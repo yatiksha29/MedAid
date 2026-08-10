@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Donor Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Linking CSS File -->
+    <link rel="stylesheet" href="style/donor_profile.css">
+
+</head>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+ <script>
+    $(document).ready(function(){
+
+    if(localStorage.getItem("activeUser")==null)
+    {
+        window.location.replace("index.html");
+        return;
+    }
+
+    $("#welcomeUser").html(localStorage.getItem("activeUser"));
+
+    // Agar email field hai to usme bhi set kar do
+    $("#txtEmail").val(localStorage.getItem("activeUser"));
+    $("#emailid").val(localStorage.getItem("activeUser"));
+
+});
+</script>
+<script>
+        function doShowPrev(fileCtrl, prevImg) 
+        {
+            const file = fileCtrl.files[0];
+
+            if (file) 
+            {
+                prevImg.src = URL.createObjectURL(file);
+            }
+        }        
+    </script>
+    <script>
+    $(document).ready(function () 
+    {
+        $("#txtDEmail").val(localStorage.getItem("activeUser"));
+        $("#btnFetch").click(function () {
+
+    let obj = {
+        url: "/donor-profile-fetch",
+        data: {
+            emailidKuch: $("#txtDEmail").val()
+        }
+    };
+
+    $.ajax(obj).then(function (jsonAry) {
+
+        if (jsonAry.length == 0) {
+            alert("No Record Found");
+            return;
+        }
+
+        $("#dName").val(jsonAry[0].name);
+        $("#dMob").val(jsonAry[0].mobile);
+        $("#dAdd").val(jsonAry[0].address);
+        $("#dCity").val(jsonAry[0].city);
+
+        $("#prevA").prop("src", jsonAry[0].acardpath);
+        $("#prevP").prop("src", jsonAry[0].picpath);
+
+        $("#hdnA").val(jsonAry[0].acardpath);
+        $("#hdnP").val(jsonAry[0].picpath);
+
+    }).fail(function (err) {
+        alert(err.responseText);
+    });
+
+});
+
+});
+    </script>
+
+<body>
+
+    <div class="donor-profile-page">
+            <div class="profile-header">
+                <center><h3>Donor Profile</h3></center>
+            </div>
+        <form action="/donor-process" method="post" enctype="multipart/form-data" >
+            <input type="hidden" name="hdnA" id="hdnA">
+            <input type="hidden" name="hdnP" id="hdnP">
+            <br>
+            <div class="row g-5">
+                <div class="col-md-6">
+                    <label for="txtDEmail" class="form-label">Email Id</label>
+                    <input type="email" class="form-control" name="txtDEmail" id="txtDEmail" readonly>
+                </div>
+                <div class="col-md-2 pt-4">
+                    <button type="button" class="btn btn-primary" id="btnFetch" name="btnFetch" valiue="fetch">Fetch</button>
+                </div>
+            </div>
+            <br>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label for="dName" class="form-label">Name</label>
+                    <input type="text" class="form-control" name="dName" id="dName" >
+                </div>
+                <div class="col-md-6">
+                    <label for="mob" class="form-label">Mobile Number</label>
+                    <input type="text" class="form-control" name="dMob" id="dMob">
+                </div>
+            </div>
+            <br>
+            <div class="row mt-2">
+                <div class="col-md-8">
+                    <label for="txtAdd" class="form-label">Address</label>
+                    <input type="text" class="form-control" name="dAdd" id="dAdd">
+                </div>
+                <div class="col-md-4">
+                    <label for="txtCity" class="form-label">City</label>
+                    <input type="text" class="form-control" name="dCity" id="dCity">
+                </div>
+            </div>
+            <br>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <label for="Acard" class="form-label">Upload Aadhar Card</label>
+                    <br>
+                    <img src="" id="prevA" alt="" width="200" height="150">
+                    <br><br>
+                    <input type="file" class="form-control" name="aPic" id="aPic" onchange="doShowPrev(this,prevA)">
+                </div>
+                <div class="col-md-4">
+                    <label for="pPic" class="form-label">Profile Pic</label>
+                    <br>
+                    <img src="" id="prevP" alt="" width="200" height="150">
+                    <br><br>
+                    <input type="file" class="form-control" name="pPic" id="pPic" onchange="doShowPrev(this,prevP)">
+                </div>
+            </div>
+            <br>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                   <center> 
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        
+                        <button type="submit" class="btn btn-primary" formaction="donor-profile-update">Update</button>
+                    </center>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

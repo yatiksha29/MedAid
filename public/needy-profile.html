@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Needy Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link rel="stylesheet" href="style/needy_profile.css">
+</head>
+     <script>
+    $(document).ready(function(){
+
+    if(localStorage.getItem("activeUser")==null)
+    {
+        window.location.replace("index.html");
+        return;
+    }
+
+    $("#welcomeUser").html(localStorage.getItem("activeUser"));
+
+    // Agar email field hai to usme bhi set kar do
+    $("#txtEmail").val(localStorage.getItem("activeUser"));
+    $("#emailid").val(localStorage.getItem("activeUser"));
+
+});
+</script>
+    <script>
+        function doShowPrev(fileCtrl, prevImg) 
+        {
+            const file = fileCtrl.files[0];
+
+            if (file) 
+            {
+                prevImg.src = URL.createObjectURL(file);
+            }
+        }        
+    </script>
+
+    <script>
+    $(document).ready(function(){
+        $("#txtNEmail").val(localStorage.getItem("activeUser"));
+    });
+    </script>
+
+    <script>
+        $scope.readAadharAI = function(){
+
+    var formData = new FormData();
+
+    formData.append("aFPic",
+        document.getElementById("aFPic").files[0]);
+
+    var obj = {
+
+        method: "POST",
+
+        url: "/ai-read-pic",
+
+        data: formData,
+
+        headers: {
+            'Content-Type': undefined
+        },
+
+        transformRequest: angular.identity
+
+    };
+
+    $http(obj).then(function(response){
+
+        $scope.name = response.data.name;
+        $scope.acardno = response.data.adhaar_number;
+        $scope.gender = response.data.gender;
+        $scope.dob = response.data.dob;
+        $scope.address = response.data.address;
+
+    }, function(err){
+
+        alert(err.data);
+
+    });
+
+}
+    </script>
+    
+<body>
+    <div class="needy-profile-page">
+
+            <div class="profile-header">
+                <center><h3>Needy Profile</h3></center>
+            </div>
+
+        <form action="/needy-process" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="hdnAF" id="hdnAF">
+            <input type="hidden" name="hdnAR" id="hdnAR">
+
+            <!-- EMAIL + MOBILE -->
+            <div class="row g-4">
+
+                <div class="col-md-6">
+                    <label for="txtNEmail" class="form-label">Email Id</label>
+                    <input type="email" class="form-control" name="txtNEmail" id="txtNEmail" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="nMob" class="form-label">Mobile</label>
+                    <input type="text" class="form-control" name="nMob" id="nMob">
+                </div>
+            </div>
+            <!-- AADHAR IMAGES -->
+            <div class="row g-5 mt-3">
+
+                <!-- Front -->
+                <div class="col-md-6">
+                    <label for="nAFCard" class="form-label">Adhar Card Front</label>
+                    <div class="image-upload-box">
+                        <img src="" id="prevAF" alt="Aadhar Card Front">
+                    </div>
+                    <input type="file" class="form-control" name="aFPic" id="aFPic" onchange="doShowPrev(this,prevAF)">
+                </div>
+
+                <!-- Rear -->
+                <div class="col-md-6">
+                    <label for="nARCard" class="form-label">Adhar Card Rear</label>
+                    
+                    <div class="image-upload-box">
+                        <img src="" id="prevAR" alt="Aadhar Card Rear">
+                    </div>
+                    <input type="file" class="form-control" name="aRPic" id="aRPic" onchange="doShowPrev(this,prevAR)">
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="row mt-5 ">
+                <div class="cold-md-12 text-center">
+                    <center>
+                        <button type="submit" class="btn btn-primary" ng-click="readAI()">Submit</button>
+                    </center>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+</html>

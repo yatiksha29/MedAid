@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myModule">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Finder</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Angular -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+
+    <style>
+        body{
+            background:#f8f9fa;
+        }
+
+        .navbar{
+            background:#198754;
+        }
+
+        .navbar-brand{
+            color:white !important;
+            font-size:28px;
+            font-weight:bold;
+        }
+
+        .search-box{
+            background:white;
+            border-radius:12px;
+            padding:25px;
+            box-shadow:0px 0px 12px rgba(0,0,0,.15);
+        }
+
+        .card{
+            transition:.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-5px);
+            box-shadow:0 0 18px rgba(0,0,0,.25);
+        }
+
+        .card img{
+            height:220px;
+            object-fit:cover;
+        }
+    </style>
+
+     <script>
+    $(document).ready(function(){
+
+    if(localStorage.getItem("activeUser")==null)
+    {
+        window.location.replace("index.html");
+        return;
+    }
+
+    $("#welcomeUser").html(localStorage.getItem("activeUser"));
+
+    // Agar email field hai to usme bhi set kar do
+    $("#txtEmail").val(localStorage.getItem("activeUser"));
+    $("#emailid").val(localStorage.getItem("activeUser"));
+
+});
+</script>
+
+    <script>
+
+var app = angular.module("myModule",[]);
+
+app.controller("myController",function($scope,$http){
+
+//-------------------------------------------
+// Fill City Combo
+//-------------------------------------------
+
+$scope.fetchCities=function(){
+
+    var url="/fetch-cities";
+
+    $http.get(url).then(function(response){
+
+        $scope.cities=response.data;
+
+    });
+
+}
+
+//-------------------------------------------
+// Fill Equipment Combo
+//-------------------------------------------
+
+$scope.fetchEquipments=function(){
+
+    var url="/fetch-equipments";
+
+    $http.get(url).then(function(response){
+
+        $scope.equipments=response.data;
+
+    });
+
+}
+
+//-------------------------------------------
+// Find Equipment
+//-------------------------------------------
+$scope.findEquipment=function(){
+
+    var city=$scope.selCity || "";
+    var equipment=$scope.selEquipment || "";
+
+    var url="/find-equipment?city="+city+"&equipment="+equipment;
+
+    $http.get(url).then(function(response){
+
+        $scope.equipmentsFound=response.data;
+
+        if(response.data.length==0)
+            alert("No Equipment Found");
+
+    });
+
+}
+
+//-------------------------------------------
+// Contact Button
+//-------------------------------------------
+
+$scope.showDetails=function(obj){
+
+    //alert(
+      //  "Donor Name : "+obj.name+
+      //  "\nMobile : "+obj.mobile+
+      //  "\nMedicine : "+obj.medname
+    // );
+    $scope.selectedDonor=obj;
+
+}
+
+});
+
+</script>
+
+</head>
+
+<body ng-controller="myController" ng-init="fetchCities();fetchEquipments();">
+
+<!------------------------Navbar----------------------------->
+
+<nav class="navbar navbar-expand-lg">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="#">
+            Equipment Finder
+        </a>
+
+    </div>
+
+</nav>
+
+<!------------------------Search Panel----------------------------->
+
+<div class="container mt-5">
+
+<div class="search-box">
+
+<div class="row">
+
+<div class="col-md-5">
+
+<label class="form-label fw-bold">
+City
+</label>
+
+<select class="form-select"
+        ng-model="selCity">
+
+<option value="">Select City</option>
+
+<option ng-repeat="obj in cities"
+        value="{{obj.city}}">
+        {{obj.city}}
+</option>
+
+</select>
+
+</div>
+
+
+<div class="col-md-5">
+
+<label class="form-label fw-bold">
+Equipment
+</label>
+
+<select class="form-select"
+        ng-model="selEquipment">
+
+<option value="">Select Equipments</option>
+
+<option ng-repeat="obj in equipments"
+        value="{{obj.equipment}}">
+        {{obj.equipment}}
+</option>
+
+</select>
+
+</div>
+
+
+<div class="col-md-2 d-grid">
+
+<label>&nbsp;</label>
+
+<button
+class="btn btn-success"
+ng-click="findEquipment()">
+
+Find Equipments
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!----------------------Cards------------------------------>
+
+<div class="container mt-5">
+
+<div class="row g-4">
+
+<div
+class="col-lg-3 col-md-4 col-sm-6 mb-4"
+ng-repeat="obj in equipmentsFound">
+
+<div class="card h-100 shadow "> <!--shadow position-relative [makes card more professional]-->
+
+<img ng-src="{{obj.pic1url}}"
+class="card-img-top" style="height:220px; object-fit:cover;" >
+
+<div class="card-body">
+
+<h5 class="card-title text-center">
+{{obj.equipment}}
+</h5>
+
+<hr>
+
+<p><b>Condition :</b>{{obj.conditionn}}</p>
+<p><b>Type :</b>{{obj.typee}}</p>
+<p><b>Quantity :</b>{{obj.amount}}</p>
+<p><b>City :</b>{{obj.city}}</p>
+</div>
+
+<div class="card-footer text-center">
+
+<button
+class="btn btn-success"
+ng-click="showDetails(obj)"
+data-bs-toggle="modal"
+data-bs-target="#detailsModal">
+
+Contact Donor
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!---------------- modal for more details ------------->
+<div class="modal fade" id="detailsModal">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h4 class="modal-title">
+                    Donor Details
+                </h4>
+
+                <button class="btn-close"
+                        data-bs-dismiss="modal"></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <table class="table table-bordered">
+
+                    <tr>
+
+                        <th>Name</th>
+
+                        <td>{{selectedDonor.name}}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Email</th>
+
+                        <td>{{selectedDonor.emailid}}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Mobile</th>
+
+                        <td>{{selectedDonor.mobile}}</td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                    Close
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!------------------------------------------------------------------->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

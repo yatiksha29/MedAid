@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Avail Equipment Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link rel="stylesheet" href="style/donor_avail_equip.css"
+    
+</head>
+
+ <script>
+    $(document).ready(function(){
+
+    if(localStorage.getItem("activeUser")==null)
+    {
+        window.location.replace("index.html");
+        return;
+    }
+
+    $("#welcomeUser").html(localStorage.getItem("activeUser"));
+
+    // Agar email field hai to usme bhi set kar do
+    $("#txtEmail").val(localStorage.getItem("activeUser"));
+    $("#emailid").val(localStorage.getItem("activeUser"));
+
+});
+</script>
+
+<script>
+    $(document).ready(function(){
+
+    $("#welcomeUser").html(localStorage.getItem("activeUser"));
+    $("#txtDEmail").val(localStorage.getItem("activeUser"));
+
+});
+</script>
+
+<script>
+        function doShowPrev(fileCtrl, prevImg) 
+        {
+            const file = fileCtrl.files[0];
+
+            if (file) 
+            {
+                prevImg.src = URL.createObjectURL(file);
+            }
+        }
+
+        
+    </script>
+
+<body>
+    <div class="container equipment-container">
+        <div class="row">
+            <div class="equipment-title">
+                <center><h3>Avail Equipment</h3></center>
+            </div>
+        </div>
+        <form action="/Avail-Equipment" method="post" enctype="multipart/form-data" class="equipment-form">
+            <br>
+            <div class="row g-5">
+                <div class="col-md-6">
+                    <label for="txtDEmail" class="form-label">Email Id</label>
+                    <input type="email" class="form-control" name="txtDEmail" id="txtDEmail" readonly>
+                </div>
+            </div>
+            <br>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label for="eName" class="form-label">Type of Medical Equipment</label>
+                    <input type="text" class="form-control" name="eName" id="dName" >
+                </div>
+                <div class="col-md-4">
+                    <label for="eCon" class="form-label">Condition</label>
+                    <select id="eCon" name="eCon" class="form-select">
+                        <option selected>Choose...</option>
+                        <option value="Brand New">Excellent/New</option>
+                        <option value="Good/Used">Good/ Used</option>
+                        <option value="Moderate">Moderate</option>
+                        <option value="Poor">Poor</option>
+                        <option value="Broken">Broken</option>
+                        <option value="Scrap">Scrap</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <label for="txtCity" class="form-label ms-2">Choose:</label>
+                    <br>
+                    <div class="form-check form-check-inline me-4 pt-2">
+                        <input class="form-check-input" type="radio" name="eType" id="eType" value="Donation">
+                        <label class="form-check-label" for="eType">NGO/Donation</label>
+                    </div>
+                    <div class="form-check form-check-inline me-4 pt-2">
+                        <input class="form-check-input" type="radio" name="eType" id="eType" value="Sale">
+                        <label class="form-check-label" for="eType">For Sale</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="eAmount" class="form-label">Amount</label>
+                    <input type="text" class="form-control" name="eAmount" id="eAmount">
+                </div>
+            </div>
+        
+            <br>
+            <center>
+            <div class="row mt-3">
+                <div class="col-md-5">
+                    <label for="pic1" class="form-label equipment-section-title">Upload Equipment Image</label>
+                    <br>
+                    <img src="" id="prevE" alt="" class="equipment-preview">
+                    <br><br>
+                    <input type="file" class="form-control" name="ePic" id="ePic" onchange="doShowPrev(this,prevE)">
+                </div>
+                <div class="col-md-5">
+                    <label for="pic2" class="form-label equipment-section-title">Any Other Image</label>
+                    <br>
+                    <img src="" id="prev2E" alt="" class="equipment-preview">
+                    <br><br>
+                    <input type="file" class="form-control" name="e2Pic" id="e2Pic" onchange="doShowPrev(this,prev2E)">
+                </div>
+            </div>
+        </center>
+            <br>
+            <div class="col-md-12">
+                <label for="eInfo" class="form-label equipment-section-title">Other Information</label>
+                <textarea cols="100" rows="4" class="form-control" id="eInfo" name="eInfo"></textarea>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                   <center> 
+                        <button type="submit" class="btn equipment-submit">Submit</button>
+                    </center>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

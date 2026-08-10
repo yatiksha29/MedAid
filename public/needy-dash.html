@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Needy Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AngularJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style/needy-dash.css">
+
+</head>
+<script>
+$(document).ready(function(){
+
+    if(localStorage.getItem("activeUser")==null)
+    {
+        window.location.replace("index.html");
+        return;
+    }
+
+    $("#welcomeUser").html(localStorage.getItem("activeUser"));
+
+    $("#btnLogout").click(function(){
+
+        localStorage.clear();
+
+        window.location.replace("index.html");
+
+    });
+
+});
+</script>
+<script>
+    $(document).ready(function(){
+
+    $("#welcomeUser").html(localStorage.getItem("activeUser"));
+    $("#emailid").val(localStorage.getItem("activeUser"));
+
+});
+</script>
+<script>
+    var app=angular.module("myModule", []);
+    app.controller("myController", function($scope,$http){
+
+    $scope.updatePassword = function(){
+        var url="/update-password?emailid="
+            + localStorage.getItem("activeUser")
+            + "&oldpwd=" +$scope.oldpwd
+            + "&newpwd=" +$scope.newpwd;
+
+        $http.get(url).then(function(response){
+            alert(response.data);
+        });
+    }
+
+    })
+</script>
+<body ng-app="myModule" ng-controller="myController">
+
+<!-- Navbar -->
+
+<nav class="dashboard-navbar">
+    <!-- LEFT : Logo + Name -->
+    <div class="navbar-logo">
+        <img src="pics/logo.png" alt="MedAid Logo">
+        <span>MedAid</span>
+    </div>
+
+    <!-- CENTER : Dashboard -->
+    <div class="dashboard-title">
+        Needy Dashboard
+    </div>
+
+    <!-- RIGHT : Email + Logout -->
+    <div class="navbar-right">
+        <span id="welcomeUser"></span>
+
+        <button class="btn btn-light" id="btnLogout">
+            Logout
+        </button>
+
+    </div>
+</nav>
+
+
+<!-- Dashboard -->
+
+<div class="dashboard-container">
+
+    <div class="row g-4">
+
+        <!-- Profile -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card text-center dashboard-card">
+                 
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"  class="dashboard-icon" alt="Profile">
+
+                <div class="card-body">
+                    <a href="needy-profile.html" class="btn btn-success">
+                        Profile
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Ngo Finder -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card text-center dashboard-card">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/2966/2966489.png"  class="dashboard-icon">
+                
+                <div class="card-body">
+                    <a href="ngoFinder.html" class="btn btn-success">
+                        NGO Finder
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Avail Medicine -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card text-center dashboard-card">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/2966/2966489.png"  class="dashboard-icon">
+                
+                <div class="card-body">
+                    <a href="medFinder.html" class="btn btn-success">
+                        Medicine Finder
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Avail Equipment -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card text-center dashboard-card">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/2966/2966489.png"  class="dashboard-icon">
+                
+                <div class="card-body">
+                    <a href="equipFinder.html" class="btn btn-success">
+                        Equipment Finder
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Settings -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card text-center dashboard-card">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/2099/2099058.png"  class="dashboard-icon">
+                
+                <div class="card-body">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#settingsModal">
+                        Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!--------------------------- Modal for Settings ---------------------------->
+        <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Settings</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Email Id</label>
+                        <input type="email" class="form-control" ng--model="emailid" name="emailid" id="emailid" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label>Existing Password</label>
+                        <input type="password" class="form-control" ng--model="oldpwd">
+                    </div>
+                    <div class="mb-3">
+                        <label>New Password</label>
+                        <input type="password" class="form-control" ng--model="newpwd">
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="updatePassword()">Update Password</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+         </div>
+    </div>
+        <!--------------------------------------------------------------------------->
+
+    </div>
+
+</div>
+
+</body>
+</html>

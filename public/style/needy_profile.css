@@ -1,0 +1,195 @@
+/* ================= BODY ================= */
+
+body {
+    background: #f5f7fa;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    color: #212529;
+}
+
+
+/* ================= PROFILE PAGE ================= */
+
+.needy-profile-page {
+    max-width: 1200px;
+    margin: 25px auto;
+
+    background: white;
+
+    border: 1px solid #ddd;
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+
+    padding: 0 35px 35px;
+
+    box-sizing: border-box;
+}
+
+
+/* ================= HEADER ================= */
+
+.needy-profile-page .profile-header {
+    background: #198754;
+    color: white;
+
+    padding: 18px 12px;
+
+    margin: 0 -35px 40px;
+
+    text-align: center;
+}
+
+.needy-profile-page .profile-header h3 {
+    margin: 0;
+    padding: 0;
+
+    background: transparent;
+    color: white;
+
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+/* ================= LABELS ================= */
+
+.needy-profile-page .form-label {
+    font-size: 18px;
+    font-weight: 500;
+
+    color: #333;
+
+    margin-bottom: 8px;
+}
+
+
+/* ================= INPUTS ================= */
+
+.needy-profile-page .form-control {
+    width: 100%;
+
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+
+    padding: 10px 14px;
+
+    font-size: 17px;
+
+    box-sizing: border-box;
+}
+
+
+/* INPUT FOCUS */
+
+.needy-profile-page .form-control:focus {
+    border-color: #198754;
+
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.20);
+}
+
+
+/* ================= IMAGE BOX ================= */
+
+.needy-profile-page .image-upload-box {
+    width: 250px;
+    height: 180px;
+
+    margin: 10px 0 15px;
+
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+
+    background: #f8f9fa;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+
+/* IMAGE */
+
+.needy-profile-page .image-upload-box img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    border-radius: 8px;
+}
+
+
+/* ================= FILE INPUT ================= */
+
+.needy-profile-page input[type="file"] {
+    height: 45px;
+
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+
+    padding: 6px;
+
+    background: white;
+
+    font-size: 15px;
+}
+
+
+/* ================= BUTTON ================= */
+
+.needy-profile-page .btn-primary {
+    background: #198754 !important;
+    border-color: #198754 !important;
+
+    color: white;
+
+    border-radius: 7px;
+
+    padding: 10px 30px;
+
+    font-size: 17px;
+}
+
+
+/* BUTTON HOVER */
+
+.needy-profile-page .btn-primary:hover {
+    background: #157347 !important;
+    border-color: #157347 !important;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+
+    .needy-profile-page {
+        width: 95%;
+
+        margin: 15px auto;
+
+        padding: 0 15px 25px;
+    }
+
+    .needy-profile-page .profile-header {
+        margin-left: -15px;
+        margin-right: -15px;
+
+        font-size: 24px;
+    }
+
+    .needy-profile-page .profile-header h3 {
+        font-size: 24px;
+    }
+
+    .needy-profile-page .image-upload-box {
+        width: 100%;
+        max-width: 250px;
+    }
+
+}

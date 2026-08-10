@@ -1,0 +1,205 @@
+/* ================= BODY ================= */
+
+body {
+    background: #f5f7fa;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    color: #212529;
+}
+
+/* ================= DONOR PROFILE ================= */
+
+.donor-profile-page {
+    max-width: 1200px;
+    margin: 25px auto;
+    background: white;
+    border: 1px solid #ddd !important;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+    padding: 0 35px 30px;
+    box-sizing: border-box;
+}
+
+/* HEADER */
+.profile-header {
+    background: #198754;
+    color: white;
+    padding: 18px 12px;
+    margin: 0 -35px 30px;
+    width: auto;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.profile-header h3 {
+    margin: 0;
+    padding: 0; 
+    background: transparent;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* LABELS */
+.donor-profile-page .form-label {
+    font-size: 18px;
+    color: #333;
+    font-weight: 500;
+}
+
+/* INPUTS */
+.donor-profile-page .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 17px;
+}
+
+.donor-profile-page .form-control:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.20);
+}
+
+/* FETCH / SUBMIT / UPDATE BUTTONS */
+.donor-profile-page .btn-primary {
+    background: #198754;
+    border-color: #198754;
+    border-radius: 7px;
+    padding: 9px 22px;
+    font-size: 17px;
+}
+
+.donor-profile-page .btn-primary:hover {
+    background: #157347;
+    border-color: #157347;
+}
+
+/* IMAGE PREVIEW */
+.donor-profile-page img {
+    object-fit: cover;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    background: #f8f9fa;
+}
+
+/* FILE INPUT */
+.donor-profile-page input[type="file"] {
+    border-radius: 8px;
+}
+
+/* ================= PAGE TITLE ================= */
+
+h1,
+h2,
+h3 {
+    color: inherit;
+}
+
+
+/* ================= LABELS ================= */
+
+label {
+    font-size: 17px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 7px;
+}
+
+
+/* ================= INPUTS ================= */
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"] {
+    width: 100%;
+    height: 45px;
+    border: 1px solid #ced4da;
+    border-radius: 7px;
+    padding: 8px 14px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: #198754;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(25,135,84,0.12);
+}
+
+
+/* ================= FETCH BUTTON ================= */
+
+.btn-primary {
+    background: #198754 !important;
+    border-color: #198754 !important;
+    border-radius: 7px;
+    padding: 9px 22px;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    background: #157347 !important;
+    border-color: #157347 !important;
+    opacity: 0.9;
+}
+
+
+/* ================= IMAGE PREVIEW ================= */
+
+#prevA,
+#prevP {
+    width: 200px;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #f8f9fa;
+}
+
+
+/* ================= FILE INPUT ================= */
+
+input[type="file"] {
+    width: 100%;
+    height: 45px;
+    border: 1px solid #ced4da;
+    border-radius: 7px;
+    padding: 6px;
+    background: white;
+    font-size: 15px;
+}
+
+
+/* ================= SUBMIT / UPDATE ================= */
+
+.btn-primary {
+    background: #198754 !important;
+    border-color: #198754 !important;
+}
+
+.btn-primary:hover {
+    background: #157347 !important;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+
+    .container {
+        width: 95%;
+        margin: 15px auto;
+        padding: 0 15px 25px;
+    }
+
+    h1,
+    h2,
+    h3 {
+        margin-left: -15px;
+        margin-right: -15px;
+        font-size: 23px;
+    }
+}

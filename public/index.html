@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MedAid</title>
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- Google Font -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <!-- Linking CSS File -->
+    <link rel="stylesheet" href="style/index1.css">
+
+</head>
+
+<script>
+$(document).ready(function () {
+    $("#btnSignup").click(function () {
+
+        let email = $("#txtEmail").val().trim();
+        let pwd = $("#txtPwd").val().trim();
+        let utype = $("#utype").val();
+
+        let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/;
+        let pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^()_+\-=\[\]{};':"\\|,.<>\/]).{8,}$/;
+
+        if(email == "" || pwd == "" || utype == "")
+        {
+            alert("All the Details are required!!!!!");
+            return;
+        }
+
+        if (!emailRegex.test(email)) {
+            alert("Invalid Email Id.");
+            return;
+        }
+
+        if (!pwdRegex.test(pwd)) {
+            alert("Password must contain:\n- 8+ characters\n- 1 Uppercase\n- 1 Lowercase\n- 1 Number\n- 1 Special Character");
+            return;
+        }
+
+        let obj = {
+            txtEmail: $("#txtEmail").val(),
+            txtPwd: $("#txtPwd").val(),
+            utype: $("#utype").val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/signup-process",
+            data: obj,
+
+            success: function (resp) {
+                alert(resp);
+            },
+
+            error: function (err) {
+                console.log(err);
+                alert("Error");
+            }
+        });
+    });
+});
+    $(document).ready(function () {
+
+    $("#btnLogin").click(function () {
+
+        let obj = {
+            type: "GET",          
+            url: "/btnLogin",   
+
+            data: {
+                emailid: $("#txtEmail2").val(),
+                pwd: $("#txtPwd2").val()
+            },
+
+            success: function (resp) {
+
+                if(resp=="admin")
+                {
+                    localStorage.setItem("activeUser",$("#txtEmail2").val());
+                    localStorage.setItem("userType","admin");
+
+                    // Clear login fields
+                    $("#txtEmail2").val("");
+                    $("#txtPwd2").val("");
+
+                    window.location.href="admin-dash.html";
+                }
+                
+                else if(resp=="Donor")
+                {
+                    localStorage.setItem("activeUser",$("#txtEmail2").val());
+                    localStorage.setItem("userType","donor");
+
+                    // Clear login fields
+                    $("#txtEmail2").val("");
+                    $("#txtPwd2").val("");
+
+                    window.location.href="donor-dash.html";
+                }
+                else if(resp=="Needy")
+                {
+                    localStorage.setItem("activeUser",$("#txtEmail2").val());
+                    localStorage.setItem("userType","needy");
+
+                    // Clear login fields
+                    $("#txtEmail2").val("");
+                    $("#txtPwd2").val("");
+
+                    window.location.href="needy-dash.html";
+                }
+                else if(resp=="NGO")
+                {
+                    localStorage.setItem("activeUser",$("#txtEmail2").val());
+                    localStorage.setItem("userType","ngo");
+
+                    // Clear login fields
+                    $("#txtEmail2").val("");
+                    $("#txtPwd2").val("");
+
+                    window.location.href="ngo-dash.html";
+                }
+                else
+                {
+                    alert(resp);
+                }
+            },
+
+            error: function (err) {
+                console.log(err);
+                alert("Error");
+            }
+        };
+
+        $.ajax(obj);
+    });
+
+});
+
+</script>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+
+        <div class="container">
+
+            <a class="navbar-brand d-flex align-items-center" href="#">
+
+                <img src="pics/logo.png" class="logo">
+
+                <span class="brand-name">MedAid</span>
+
+            </a>
+
+            <button class="navbar-toggler" data-bs-toggle="collapse"
+                data-bs-target="#navbar">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbar">
+
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#working">MedAid Working</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#warning">Important Guidelines</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#developer">Developer</a>
+                    </li>
+                    </ul>
+
+                    <div class="ms-lg-4">
+
+                        <button class="btn btn-outline-success rounded-pill px-4 me-2"
+                                data-bs-toggle="modal"
+                                data-bs-target="#login">
+
+                            Login
+
+                        </button>
+
+                        <button class="btn btn-success rounded-pill px-4"
+                                data-bs-toggle="modal"
+                                data-bs-target="#signup">
+
+                            Sign Up
+
+                        </button>
+
+                    </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+<!-- ================= LOGIN MODAL ================= -->
+
+<div class="modal fade" id="login" tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+        <div class="modal-content login-modal border-0 shadow-lg rounded-4">
+
+            <div class="modal-header bg-primary text-white">
+
+                <h4 class="modal-title fw-semibold">
+
+                    <i class="bi bi-box-arrow-in-right me-2"></i>
+
+                    Welcome Back
+
+                </h4>
+
+                <button type="button"
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal">
+
+                </button>
+
+            </div>
+
+            <div class="modal-body p-4">
+
+                <div class="card border-0 bg-transparent">
+
+                    <div class="row g-4 align-items-center">
+
+                        <div class="col-md-4 text-center">
+
+                            <img src="pics/admininfo.png"
+                                class="login-profile img-fluid rounded-circle border border-4 border-success shadow-sm"
+                                alt="Admin">
+
+                            <h5 class="mt-3 text-primary fw-semibold">
+
+                                MedAid Login
+
+                            </h5>
+
+                            <p class="text-muted small mb-0">
+
+                                Access your donor, NGO, or needy account
+
+                            </p>
+
+                        </div>
+
+                        <div class="col-md-8">
+
+                            <div class="card-body p-0">
+
+                                <form>
+
+                                    <div class="mb-3">
+
+                                        <label for="txtEmail2" class="form-label fw-medium">
+
+                                            Email Address
+
+                                        </label>
+
+                                        <input type="email"
+                                            class="form-control form-control-lg border-primary-subtle"
+                                            name="txtEmail2"
+                                            id="txtEmail2"
+                                            placeholder="Enter your email">
+
+                                    </div>
+
+                                    <div class="mb-4">
+
+                                        <label for="txtPwd2" class="form-label fw-medium">
+
+                                            Password
+
+                                        </label>
+
+                                        <input type="password"
+                                            class="form-control form-control-lg border-primary-subtle"
+                                            id="txtPwd2"
+                                            name="txtPwd2"
+                                            placeholder="Enter your password">
+
+                                    </div>
+
+                                    <div class="d-grid">
+
+                                        <input type="button"
+                                            class="btn btn-primary btn-lg rounded-pill fw-semibold"
+                                            id="btnLogin"
+                                            value="Login">
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!------------------------------------------------------------------------------------------------>
+<!-- Signup Modal -->
+
+<div class="modal fade" id="signup" tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content border-0 shadow-lg rounded-4">
+
+            <div class="modal-header bg-success text-white">
+
+                <h4 class="modal-title">
+
+                    <i class="bi bi-person-plus-fill me-2"></i>
+
+                    Create Account
+
+                </h4>
+
+                <button class="btn-close btn-close-white"
+                    data-bs-dismiss="modal">
+
+                </button>
+
+            </div>
+
+            <div class="modal-body p-4">
+
+                <form>
+
+                    <div class="text-center mb-4">
+
+                        <img src="pics/admininfo.png"
+                            class="login-img">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Email Address
+
+                        </label>
+
+                        <input
+                            type="email"
+                            class="form-control form-control-lg"
+                            name="txtEmail"
+                            id="txtEmail">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Password
+
+                        </label>
+
+                        <input
+                            type="password"
+                            class="form-control form-control-lg"
+                            name="txtPwd"
+                            id="txtPwd">
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            User Type
+
+                        </label>
+
+                        <select
+                            class="form-select form-select-lg"
+                            id="utype"
+                            name="utype">
+
+                            <option value="None">
+
+                                Select User Type
+
+                            </option>
+
+                            <option value="Donor">
+
+                                Donor
+
+                            </option>
+
+                            <option value="NGO">
+
+                                NGO
+
+                            </option>
+
+                            <option value="Needy">
+
+                                Needy
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="d-grid">
+
+                        <button
+                            type="button"
+                            class="btn btn-success btn-lg"
+                            id="btnSignup">
+
+                            Create Account
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-------------------------------------------------------------------------->
+
+
+    <!-- ================= CAROUSEL ================= -->
+
+    <div id="slider" class="carousel slide carousel-fade"
+        data-bs-ride="carousel">
+
+        <div class="carousel-indicators">
+
+            <button data-bs-target="#slider"
+                data-bs-slide-to="0"
+                class="active"></button>
+
+            <button data-bs-target="#slider"
+                data-bs-slide-to="1"></button>
+
+            <button data-bs-target="#slider"
+                data-bs-slide-to="2"></button>
+
+        </div>
+
+        <div class="carousel-inner">
+
+            <!-- Slide 1 -->
+
+            <div class="carousel-item active">
+
+                <img src="pics/Banner1.png"
+                    class="d-block w-100 banner">
+
+            </div>
+
+            <!-- Slide 2 -->
+
+            <div class="carousel-item">
+
+                <img src="pics/Banner2.png"
+                    class="d-block w-100 banner">
+
+            </div>
+
+            <!-- Slide 3 -->
+
+            <div class="carousel-item">
+
+                <img src="pics/Banner3.png"
+                    class="d-block w-100 banner">
+
+            </div>
+
+            <!-- Slide 4 -->
+
+            <div class="carousel-item">
+
+                <img src="pics/Banner4.png"
+                    class="d-block w-100 banner">
+
+            </div>
+
+        </div>
+
+        <button class="carousel-control-prev"
+            data-bs-target="#slider"
+            data-bs-slide="prev">
+
+            <span class="carousel-control-prev-icon"></span>
+
+        </button>
+
+        <button class="carousel-control-next"
+            data-bs-target="#slider"
+            data-bs-slide="next">
+
+            <span class="carousel-control-next-icon"></span>
+
+        </button>
+
+    </div>
+
+
+
+    <!-- ================= SERVICES ================= -->
+
+    <section class="py-5" id="services">
+
+        <div class="container">
+
+            <div class="text-center mb-5">
+
+                <h2 class="section-title">
+
+                    Our Services
+
+                </h2>
+
+                <p class="section-text">
+
+                    Making healthcare accessible through donations,
+                    lending and community support.
+
+                </p>
+
+            </div>
+
+            <div class="row g-4">
+
+                <!-- Card 1 -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="service-card">
+
+                        <img src="pics/card1.png">
+
+                        <h4>Donate Medicines</h4>
+
+                        <p>
+
+                            Donate unused medicines to help people
+                            in need.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Card 2 -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="service-card">
+
+                        <img src="pics/card2.png">
+
+                        <h4>Lend Equipment</h4>
+
+                        <p>
+
+                            Lend wheelchairs, walkers,
+                            oxygen concentrators and more.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Card 3 -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="service-card">
+
+                        <img src="pics/card3.png">
+
+                        <h4>Request Support</h4>
+
+                        <p>
+
+                            NGOs and needy people can request
+                            medicines easily.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Card 4 -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="service-card">
+
+                        <img src="pics/card4.png">
+
+                        <h4>NGO Partnership</h4>
+
+                        <p>
+
+                            Connect NGOs with donors and medical
+                            resources.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Card 5 -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="service-card">
+
+                        <img src="pics/card5.png">
+
+                        <h4>Community Support</h4>
+
+                        <p>
+
+                            Build a healthier community through
+                            shared medical care.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Card 6 -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="service-card">
+
+                        <img src="pics/card6.png">
+
+                        <h4>Reduce Medical Waste</h4>
+
+                        <p>
+
+                            Prevent wastage by reusing medical
+                            resources responsibly.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= HOW MEDAID WORKS ================= -->
+
+<section class="how-medaid-works" id="working">
+
+    <div class="container">
+
+        <h2>HOW MEDAID WORKS</h2>
+
+        <div class="row align-items-center justify-content-center g-4">
+
+            <!-- Step 1 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="work-step text-center">
+
+                    <div class="step-icon mx-auto">
+                        👤
+                    </div>
+
+                    <span class="step-number">1</span>
+
+                    <h5>Register</h5>
+
+                    <p>
+                        Sign up as a donor or someone in need.
+                    </p>
+
+                </div>
+            </div>
+
+
+            <!-- Step 2 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="work-step text-center">
+
+                    <div class="step-icon mx-auto">
+                        🔍
+                    </div>
+
+                    <span class="step-number">2</span>
+
+                    <h5>Donate / Search</h5>
+
+                    <p>
+                        Add or search for medicines and medical equipment.
+                    </p>
+
+                </div>
+            </div>
+
+
+            <!-- Step 3 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="work-step text-center">
+
+                    <div class="step-icon mx-auto">
+                        🤝
+                    </div>
+
+                    <span class="step-number">3</span>
+
+                    <h5>Connect</h5>
+
+                    <p>
+                        Connect donors with people or NGOs in need.
+                    </p>
+
+                </div>
+            </div>
+
+
+            <!-- Step 4 -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="work-step text-center">
+
+                    <div class="step-icon mx-auto">
+                        ❤️
+                    </div>
+
+                    <span class="step-number">4</span>
+
+                    <h5>Help</h5>
+
+                    <p>
+                        Your help brings hope and makes a difference.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= IMPORTANT CAUTIONS ================= -->
+
+<section class="important-cautions" id="warning">
+
+    <div class="container">
+
+        <div class="caution-wrapper">
+
+            <h2>⚠ IMPORTANT GUIDELINES</h2>
+
+            <div class="row g-4">
+
+
+                <!-- Medicines -->
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <div class="caution-card h-100">
+
+                        <div class="caution-icon">
+                            💊
+                        </div>
+
+                        <h5>MEDICINES</h5>
+
+                        <ul>
+                            <li>Always check the expiry date before adding a medicine.</li>
+                            <li>Do not donate expired or damaged medicines.</li>
+                            <li>Mention the correct quantity and medicine type.</li>
+                            <li>Keep medicines in their original packaging whenever possible.</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Equipment -->
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <div class="caution-card h-100">
+
+                        <div class="caution-icon">
+                            ♿
+                        </div>
+
+                        <h5>MEDICAL EQUIPMENT</h5>
+
+                        <ul>
+                            <li>Add only equipment that is safe and usable.</li>
+                            <li>Clearly mention the condition of the equipment.</li>
+                            <li>Do not list damaged or unsafe equipment.</li>
+                            <li>Upload clear images so the receiver can verify its condition.</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Information -->
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <div class="caution-card h-100">
+
+                        <div class="caution-icon">
+                            📋
+                        </div>
+
+                        <h5>INFORMATION</h5>
+
+                        <ul>
+                            <li>Enter correct contact details so needy people/NGOs can reach you.</li>
+                            <li>Do not upload unnecessary personal or confidential information.</li>
+                            <li>Verify all details before submitting.</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Important -->
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <div class="caution-card h-100">
+
+                        <div class="caution-icon">
+                            ⚠
+                        </div>
+
+                        <h5>IMPORTANT</h5>
+
+                        <p>
+                            MedAid connects donors with people and NGOs in need.
+                        </p>
+
+                        <strong>
+                            Please verify the condition, expiry, and suitability
+                            of any medicine or equipment before donating or accepting it.
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+    <!-- ================= DEVELOPER ================= -->
+
+    <section class="developer-section py-5"
+        id="developer">
+
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-4 text-center">
+
+                    <img src="pics/developer.png"
+                        class="developer-img">
+
+                </div>
+
+                <div class="col-lg-8">
+
+                    <h2>
+
+                        Meet The Developer
+
+                    </h2>
+
+                    <h4>
+
+                        Yatiksha Goyal
+
+                    </h4>
+
+                    <p>
+
+                        MCA (Artificial Intelligence &
+                        Machine Learning)
+
+                    </p>
+
+                    <p>
+
+                        Full Stack Web Developer passionate
+                        about building impactful healthcare
+                        solutions through technology.
+
+                    </p>
+
+                    <div class="social-icons">
+                         <a href="https://www.linkedin.com/in/yatiksha-goyal-74ab29302/" target="_blank">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                        
+                        <a href="https://github.com/yatiksha29" target="_blank">
+                            <i class="bi bi-github"></i>
+                        </a>
+
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=yatiksha291@gmail.com" target="_blank">
+                            <i class="bi bi-envelope-fill"></i>
+                        </a>
+
+                        <a href="https://wa.me/9578980007" target="_blank">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="container">
+
+            <p>
+
+                © 2026 MedAid |
+                All Rights Reserved
+
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

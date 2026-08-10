@@ -1,0 +1,127 @@
+/* ================= AVAIL EQUIPMENT PAGE ================= */
+
+.equipment-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+/* PAGE HEADING */
+
+.equipment-title {
+    background: #198754;
+    color: white;
+    text-align: center;
+    padding: 12px;
+}
+
+.equipment-title h3 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+
+/* FORM */
+
+.equipment-form {
+    padding: 25px 35px 30px;
+}
+
+.equipment-form .form-label {
+    font-size: 17px;
+    margin-bottom: 7px;
+}
+
+
+/* INPUTS */
+
+.equipment-form .form-control,
+.equipment-form .form-select {
+    border-radius: 7px;
+    border: 1px solid #d5dce0;
+}
+
+.equipment-form .form-control:focus,
+.equipment-form .form-select:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.2rem rgba(25,135,84,0.15);
+}
+
+
+/* IMAGE SECTION */
+
+.equipment-section-title {
+    color: #198754;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.equipment-preview {
+    width: 280px;
+    height: 220px;
+    object-fit: contain;
+    background: #f8f9fa;
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+}
+
+
+/* FILE INPUT */
+
+.equipment-form input[type="file"] {
+    width: 280px;
+    margin: 0 auto;
+}
+
+
+/* OTHER INFORMATION */
+
+.equipment-form textarea {
+    resize: vertical;
+}
+
+
+/* SUBMIT BUTTON */
+
+.equipment-submit {
+    background: #198754;
+    color: white;
+    border: none;
+    padding: 9px 35px;
+    border-radius: 7px;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.equipment-submit:hover {
+    background: #157347;
+    color: white;
+}
+
+
+/* MOBILE */
+
+@media(max-width: 768px) {
+
+    .equipment-container {
+        margin: 15px;
+    }
+
+    .equipment-form {
+        padding: 20px;
+    }
+
+    .equipment-preview {
+        width: 240px;
+        height: 190px;
+    }
+
+    .equipment-form input[type="file"] {
+        width: 240px;
+    }
+}
