@@ -594,7 +594,7 @@ app.post("/needy-process", async function(req,res){
 
 //---------------- Gen AI [needy's profile] [AI Function] -----------------------
 
-const genAI = new GoogleGenerativeAI(process.env.GEN_AI_KEY);
+const genAI = new GoogleGenerativeAI(process.env.GEN_AI_API_KEY);
 const model = genAI.getGenerativeModel({model:"gemini-3.5-flash"}); //else = model:"gemini-3.5-flash"
 
 async function YatikshaGoyalTool(frontUrl, rearUrl)
