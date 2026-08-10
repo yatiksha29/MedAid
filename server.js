@@ -31,6 +31,17 @@ let url=process.env.AIVEN_URL;
                         console.log(err.message);
         })
 
+//------------For Uploads on render-------
+const fs = require("fs");
+const path = require("path");
+
+const uploadDir = path.join(__dirname, "uploads");
+
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+//---------------------------------------------------------
+
 //------------- Signup Page (Button) ---------------------//
 app.post("/signup-process", function(req,resp)
 {
@@ -659,7 +670,8 @@ app.post("/ai-read-pic", async function(req,res){
 
     let frontName=req.files.aFPic.name;
 
-    let frontPath=__dirname+"/uploads/"+frontName;
+    //let frontPath=__dirname+"/uploads/"+frontName;
+    let frontPath = path.join(uploadDir, frontName);
 
     await req.files.aFPic.mv(frontPath);
 
@@ -672,7 +684,8 @@ app.post("/ai-read-pic", async function(req,res){
 
     let rearName=req.files.aRPic.name;
 
-    let rearPath=__dirname+"/uploads/"+rearName;
+    //let rearPath=__dirname+"/uploads/"+rearName;
+    let rearPath = path.join(uploadDir, rearName);
 
     await req.files.aRPic.mv(rearPath);
 
